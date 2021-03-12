@@ -24,7 +24,7 @@ class SecondaryApp extends Component {
 
     render() {
         const { text } = this.state;
-
+        //looping trough each character of string user entered
         const CharComponentRender = text.split('').map((char, index) => {
 
             return(
