@@ -5,39 +5,42 @@ import ValidationComponent from './Components/ValidationComponent';
 class SecondaryApp extends Component {
     
     state = {
-        text: '',
-        arrayOfChars: []
-    }
-
-    onInptChange = ( event ) => {
-        const { text, arrayOfChars } = this.state;
-        let userInputText = event.target.value;
-        const newCharArray = [...arrayOfChars];
-        newCharArray.push(userInputText.split(''));
-        this.setState({ text: userInputText, arrayOfChars: newCharArray});
+        text: ''
     }
 
     onCharClick = ( id ) => {
-        const newArray = [...this.state.arrayOfChars];
-        newArray.splice(id, 1);
-        this.setState({ arrayOfChars: newArray });
+        const { text } = this.state;
+        const temp = text.split('');/// splitting this.state.text string into array of characters
+        temp.splice(id, 1); // removing specific character from array of characters collected above
+        const anotherTemp = temp.join(''); // creating string from array of characters
+        this.setState({
+            text: anotherTemp
+        })
+    }
+
+    onInptChange = (e) => {
+        this.setState({text: e.target.value});
     }
 
     render() {
-        const { text, arrayOfChars } = this.state;
+        const { text } = this.state;
 
-        let CharComponentRender = arrayOfChars.map((char, index) => {
+        const CharComponentRender = text.split('').map((char, index) => {
 
             return(
-                <CharComponent char={char[index]} key={index} click={this.onCharClick.bind(this, index)} />
+                <CharComponent
+                    char={char}
+                    key={index}
+                    click={this.onCharClick.bind(index)}
+                />
             )
         });
          
         return (
             <>
                 <input type="text" value={text} onChange={this.onInptChange} />
-                <p>{text.length}</p>
-                <ValidationComponent textLength={text}/>
+                <p>{text}</p>
+                <ValidationComponent textLength={text.length}/>
                 {CharComponentRender}
             </>
         );

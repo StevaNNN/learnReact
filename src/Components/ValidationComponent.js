@@ -4,9 +4,15 @@ const ValidationComponent = ( props ) => {
 
     let { textLength } = props
 
+    let validationText = "Text to small"
+
+    if(textLength >= 5) {
+        validationText = "Text long enough";
+    }
+
     return (
         <div>
-            { textLength.length + 1 <= 5 ? 'Text to small': 'Text long enough' }
+            {validationText}
         </div>
     );
 };
