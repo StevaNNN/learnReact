@@ -1,32 +1,23 @@
 import React, { Component } from 'react';
-import Person from './Components/Person/Person';
+import Persons from './Components/Persons/Persons';
+import Cockpit from './Components/Cockpit/Cockpit';
 import './App.scss';
 
 class App extends Component {
 
     state = {
         persons : [
-            { id: 'asdf', name: "Ljilja", age: 100 },
-            { id: 'fghj', name: "Nena", age: 30 },
-            { id: 'qwerty', name: "Steva", age: 28 }
+            { id: '123', name: "Ljilja", age: 100 },
+            { id: '456', name: "Nena", age: 30 },
+            { id: '789', name: "Steva", age: 28 }
         ],
         showPersons: true
     }
-  
-    // switchNameHandler = ( newName ) => {
-    //   this.setState({
-    //     persons : [
-    //         { name: "Ljilja", age: 100 },
-    //         { name: "Nena", age: 30 },
-    //         { name: newName, age: 28 }
-    //     ]
-    //   });
-    // }
 
     deletePersonHandler = ( personID ) => {
         const persons = [...this.state.persons];
         persons.splice(personID, 1); // deleting array from id by 1 basicly delete currently clicked person
-        this.setState({persons: persons});
+        this.setState({ persons: persons });
     }
   
     inputChanged = ( event, id ) => {
@@ -50,42 +41,24 @@ class App extends Component {
     }
   
     render() {
-
-        const btnStyles = {
-            border: '1px solid black',
-            background: 'grey',
-            color: 'white',
-            padding: '.5em',
-            fontSize: '1em'
-        }
-  
-        const { showPersons } = this.state;
-  
+        const { showPersons, persons } = this.state;
         let personss = null;
 
         if(showPersons) {
             personss = (
                 <div>
-                    {this.state.persons.map((person) => {
-                        return (
-                            <Person
-                                key={person.id}
-                                age={person.age}
-                                name={person.name}
-                                changed={(event) => this.inputChanged(event, person.id)}
-                                click={this.deletePersonHandler.bind(this, person.id)}
-                            >
-                                Clicking here will delete person
-                            </Person>
-                        );
-                    })}
+                    <Persons
+                        persons={persons}
+                        clicked={this.deletePersonHandler}
+                        changed={this.inputChanged}
+                    />
                 </div>
             );
         }
   
         return(
             <div className="App">
-                <button style={{...btnStyles}}onClick={this.onButtonClick}>Toogle persons visibility</button>
+                <Cockpit clicked={this.onButtonClick}/>
                 {personss}
             </div> 
         )
