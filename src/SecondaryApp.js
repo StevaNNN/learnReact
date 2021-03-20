@@ -8,30 +8,28 @@ class SecondaryApp extends Component {
         text: ''
     }
 
-    onCharClick = ( id ) => {
-        const { text } = this.state;
-        const temp = text.split('');/// splitting this.state.text string into array of characters
-        temp.splice(id, 1); // removing specific character from array of characters collected above
-        const anotherTemp = temp.join(''); // creating string from array of characters
-        this.setState({
-            text: anotherTemp
-        })
-    }
-
     onInptChange = (e) => {
         this.setState({text: e.target.value});
+    }
+
+    onCharClick = ( index ) => {
+        const { text } = this.state;
+        const temp = text.split('');/// splitting this.state.text string into array of characters
+        temp.splice(index, 1); // removing specific character from array of characters collected above
+        const anotherTemp = temp.join(''); // creating string from array of characters
+        this.setState({ text: anotherTemp })
     }
 
     render() {
         const { text } = this.state;
         //looping trough each character of string user entered
         const CharComponentRender = text.split('').map((char, index) => {
-
+            
             return(
                 <CharComponent
                     char={char}
                     key={index}
-                    click={this.onCharClick.bind(index)}
+                    click={() => this.onCharClick(index)}
                 />
             )
         });
