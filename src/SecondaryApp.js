@@ -29,7 +29,7 @@ class SecondaryApp extends Component {
                 <CharComponent
                     char={char}
                     key={index}
-                    click={() => this.onCharClick(index)}
+                    click={this.onCharClick.bind(this, index)}
                 />
             )
         });
