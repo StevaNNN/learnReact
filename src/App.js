@@ -22,8 +22,8 @@ class App extends Component {
   
     inputChanged = ( event, id ) => {
         const persons = [...this.state.persons]; // creating copy of the persons array stored in component state
-        const personIndex = persons.findIndex(p => {return p.id === id});  // collecting ID of person
-        const person = {...this.state.persons[personIndex]}; // each person object and its values
+        const personIndex = persons.findIndex(p => {return p.id === id});  // collecting ID of person and return that id to the personIndex variable if matches id from argument
+        const person = {...this.state.persons[personIndex]}; // specific person object collected from id argumnet of method and its key values pairs
         person.name = event.target.value; // updating specific person object with values get from input
         persons[personIndex] = person; // updating copy array of persons with newly updated person object
         this.setState({persons: persons}); // update the state of persons array of component
