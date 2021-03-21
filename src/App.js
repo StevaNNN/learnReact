@@ -11,7 +11,8 @@ class App extends Component {
             { id: '456', name: "Nena", age: 30 },
             { id: '789', name: "Steva", age: 28 }
         ],
-        showPersons: true
+        showPersons: true,
+        cockpitRemoved: false
     }
 
     deletePersonHandler = ( personID ) => {
@@ -35,6 +36,10 @@ class App extends Component {
         // 5. after simply setState to the newly updated persons array
     }
   
+    shouldComponentUpdate(nextProps, nextState) {
+        return true
+    }
+
     onButtonClick = () => {
         let { showPersons } = this.state;
         this.setState({ showPersons: !showPersons });
@@ -58,7 +63,8 @@ class App extends Component {
   
         return(
             <div className="App">
-                <Cockpit clicked={this.onButtonClick}/>
+                <button onClick={()=> this.setState({cockpitRemoved : !this.state.cockpitRemoved})}>remove Cockpit</button>
+                {!this.state.cockpitRemoved ? <Cockpit clicked={this.onButtonClick} active={showPersons}/> : null}
                 {personss}
             </div> 
         )
