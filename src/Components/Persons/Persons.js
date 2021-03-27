@@ -3,10 +3,6 @@ import Person from './Person/Person';
 
 class Persons extends Component {
 
-    componentWillUnmount() {
-        console.log('[Persons.js] componentWillUnmount');
-    }
-
     shouldComponentUpdate(nextProps, nextState) {
         // triggers as toogle should this cmp be updated or not
         // defaultly if this cmp Persons.js is instanciated in some parent cmp
