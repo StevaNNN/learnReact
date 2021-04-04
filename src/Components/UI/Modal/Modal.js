@@ -6,7 +6,8 @@ import Backdrop from '../Backdrop/Backdrop';
 class Modal extends React.Component {
 
     shouldComponentUpdate(nextProps, nextState) {
-        return nextProps.shown !== this.props.shown;
+        // we are only re-rendering this component if props SHOWN or CHILDREN are not the same between current and next props
+        return nextProps.shown !== this.props.shown || nextProps.children !== this.props.children;
     }
 
     componentDidUpdate() {
