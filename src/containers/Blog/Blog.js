@@ -1,12 +1,15 @@
-import React, { Component } from 'react';
+import React, { Component, Suspense } from 'react';
 import { Route, Switch, NavLink, Redirect } from 'react-router-dom';
-import asyncComponent from "../../hoc/asyncComponent";
 import Posts from './Posts/Posts'
 import classes from './Blog.module.scss';
-
-const AsyncNewPost = asyncComponent(() => {
-    return import('./NewPost/NewPost')
+// within 16.6 react v this is how we should use lazy loading of componewnt
+const AsyncNewPost = React.lazy(() => {
+   import('./NewPost/NewPost')
 });
+//import asyncComponent from "../../hoc/asyncComponent";
+// const AsyncNewPost = asyncComponent(() => {
+//     return import('./NewPost/NewPost')
+// });
 
 class Blog extends Component {
 
@@ -47,7 +50,11 @@ class Blog extends Component {
                     </nav>
                 </header>
                 <Switch>
-                    {this.state.auth && <Route path="/new-post" component={ AsyncNewPost } />}
+                    {this.state.auth && <Route path="/new-post" render={() => (
+                        <Suspense fallback={<h1>Loading...</h1>}>
+                            <AsyncNewPost/>
+                        </Suspense>)
+                    }/>}
                     <Route path="/posts" component={ Posts } />
                     <Route render={() => <h1>Not Found</h1>}/>
                     {/*redirect helps guards to redirect to whatever page */}
